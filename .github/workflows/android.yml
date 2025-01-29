@@ -6,20 +6,21 @@ on:
     paths:
       - '**'
       - '!update.json'
-      - '!.github/workflows/*.yml'
       - '!*.md'
+      - '!README.md'
+
 jobs:
   build:
     permissions: write-all
     runs-on: ubuntu-latest
-    if: github.event_name == 'push'
     steps:
       - uses: actions/checkout@v4
-      - name: set up JDK 17
+      
+      - name: Set up JDK 17
         uses: actions/setup-java@v4
         with:
           java-version: '17'
-          distribution: 'temurin'
+          distribution: temurin
           cache: gradle
 
       - name: Grant execute permission for gradlew
@@ -28,24 +29,23 @@ jobs:
       - name: Write key to gradle.properties
         run: |
           echo ${{ secrets.KEY_STORE }} | base64 --decode > app/key.jks
-          printf "\nRELEASE_FILE=key.jks" >> gradle.properties
-          printf "\nRELEASE_PASSWORD=${{ secrets.PASSWORD }}" >> gradle.properties
-          printf "\nRELEASE_ALIAS=${{ secrets.ALIAS }}" >> gradle.properties
+          echo "RELEASE_FILE=key.jks" >> gradle.properties
+          echo "RELEASE_PASSWORD=${{ secrets.PASSWORD }}" >> gradle.properties
+          echo "RELEASE_ALIAS=${{ secrets.ALIAS }}" >> gradle.properties
 
       - name: Build and test app
-        run: |
-          ./gradlew assembleRelease
+        run: ./gradlew assembleRelease
 
       - name: Setup NodeJs
-        uses: actions/setup-node@v4.1.0
+        uses: actions/setup-node@v4
         with:
           node-version: 22
 
-      - name: Write Bot Files and Configure environment variables
+      - name: Write Bot Files
         run: |
           APKVERSION=$(grep -Po 'versionName\s*=\s*"\K[^"]+' app/build.gradle.kts)
           APKNEWPATH="app/build/outputs/apk/release/WaRevamp_$APKVERSION.apk"
-          cp app/build/outputs/apk/release/app-release.apk $APKNEWPATH
+          cp app/build/outputs/apk/release/app-release.apk "$APKNEWPATH"
           echo ${{ secrets.BOT_INDEX }} | base64 --decode > index.js
           echo ${{ secrets.BOT_PACKAGE }} | base64 --decode > package.json
           echo "CHANGE_LOG_PATH=change_log.txt" >> $GITHUB_ENV
@@ -61,7 +61,6 @@ jobs:
 
       - name: Upload artifacts
         uses: actions/upload-artifact@v4
-        id: upload
         with:
           name: app-release
           path: app/build/outputs/apk/release/app-release.apk
