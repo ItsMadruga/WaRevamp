@@ -3,25 +3,25 @@
     <Preference
         android:title="@string/privacy"
         android:icon="@drawable/twotone_lock_24"
-        android:fragment="its.madruga.warevamp.ui.fragments.RootFragment$PrivacyPreference"
+        android:fragment="its.madruga.warevamp.app.ui.fragments.RootFragment$PrivacyPreference"
         android:summary="@string/privacy_sum"/>
 
     <Preference
         android:title="@string/perso"
         android:icon="@drawable/twotone_auto_awesome_24"
-        android:fragment="its.madruga.warevamp.ui.fragments.RootFragment$PersoPreference"
+        android:fragment="its.madruga.warevamp.app.ui.fragments.RootFragment$PersoPreference"
         android:summary="@string/perso_sum" />
 
     <Preference
         android:title="@string/media_settings"
         android:icon="@drawable/twotone_photo_library_24"
-        android:fragment="its.madruga.warevamp.ui.fragments.RootFragment$MediaPreference"
+        android:fragment="its.madruga.warevamp.app.ui.fragments.RootFragment$MediaPreference"
         android:summary="@string/media_settings_sum" />
 
     <Preference
         android:title="@string/general"
         android:icon="@drawable/twotone_public_24"
-        android:fragment="its.madruga.warevamp.ui.fragments.RootFragment$PersoGeneralPreference"
+        android:fragment="its.madruga.warevamp.app.ui.fragments.RootFragment$PersoGeneralPreference"
         android:summary="@string/general_sum"/>
 
     <Preference

@@ -7,8 +7,6 @@ import de.robv.android.xposed.XposedHelpers;
 
 import static its.madruga.warevamp.module.hooks.core.HooksLoader.mApp;
 
-import java.util.Date;
-
 public class WppUtils {
 
     public static String stripJID(String str) {

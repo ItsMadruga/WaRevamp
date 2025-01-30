@@ -1,13 +1,10 @@
-package its.madruga.warevamp.ui.fragments;
-
-import static its.madruga.warevamp.core.Receivers.sendCleanDatabase;
+package its.madruga.warevamp.app.ui.fragments;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -16,11 +13,12 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
 import its.madruga.warevamp.App;
 import its.madruga.warevamp.R;
-import its.madruga.warevamp.core.XposedChecker;
+import its.madruga.warevamp.app.core.XposedChecker;
+import its.madruga.warevamp.broadcast.senders.ModuleSender;
 import its.madruga.warevamp.databinding.RootFragmentBinding;
-import its.madruga.warevamp.ui.activitys.AboutActivity;
-import its.madruga.warevamp.ui.fragments.core.BaseFragment;
-import its.madruga.warevamp.ui.fragments.core.BasePreferenceActivity;
+import its.madruga.warevamp.app.ui.activitys.AboutActivity;
+import its.madruga.warevamp.app.ui.fragments.core.BaseFragment;
+import its.madruga.warevamp.app.ui.fragments.core.BasePreferenceActivity;
 
 public class RootFragment extends BaseFragment {
     RootFragmentBinding binding;
@@ -178,7 +176,7 @@ public class RootFragment extends BaseFragment {
                 builder.setTitle(R.string.clean_msgstore);
                 builder.setMessage(R.string.clean_database_msg);
                 builder.setPositiveButton(android.R.string.ok, (dialogInterface, i) -> {
-                    sendCleanDatabase("msgstore");
+                    ModuleSender.sendCleanDatabase("msgstore");
                 });
                 builder.setNegativeButton(android.R.string.cancel, ((dialogInterface, i) -> {
                     dialogInterface.dismiss();
@@ -192,7 +190,7 @@ public class RootFragment extends BaseFragment {
                 builder.setTitle(R.string.clean_axolotl);
                 builder.setMessage(R.string.clean_database_msg);
                 builder.setPositiveButton(android.R.string.ok, (dialogInterface, i) -> {
-                    sendCleanDatabase("axolotl");
+                    ModuleSender.sendCleanDatabase("axolotl");
                 });
                 builder.setNegativeButton(android.R.string.cancel, ((dialogInterface, i) -> {
                     dialogInterface.dismiss();
@@ -206,7 +204,7 @@ public class RootFragment extends BaseFragment {
                 builder.setTitle(R.string.clean_wa);
                 builder.setMessage(R.string.clean_database_msg);
                 builder.setPositiveButton(android.R.string.ok, (dialogInterface, i) -> {
-                    sendCleanDatabase("wa");
+                    ModuleSender.sendCleanDatabase("wa");
                 });
                 builder.setNegativeButton(android.R.string.cancel, ((dialogInterface, i) -> {
                     dialogInterface.dismiss();
@@ -220,7 +218,7 @@ public class RootFragment extends BaseFragment {
                 builder.setTitle(R.string.clean_msgstore);
                 builder.setMessage(R.string.clean_database_msg);
                 builder.setPositiveButton(android.R.string.ok, (dialogInterface, i) -> {
-                    sendCleanDatabase("sticker");
+                    ModuleSender.sendCleanDatabase("sticker");
                 });
                 builder.setNegativeButton(android.R.string.cancel, ((dialogInterface, i) -> {
                     dialogInterface.dismiss();

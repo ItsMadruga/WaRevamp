@@ -1,5 +1,6 @@
 package its.madruga.warevamp.module.hooks.functions;
 
+import static its.madruga.warevamp.module.hooks.functions.CustomPrivacyHook.getCustomPref;
 import static its.madruga.warevamp.module.references.ModuleResources.string.message_deleted;
 import static its.madruga.warevamp.module.references.References.*;
 import static its.madruga.warevamp.module.core.WppUtils.*;
@@ -48,18 +49,20 @@ public class AntiRevokeHook extends HooksBase {
         String antiRevoke = prefs.getString("antiRevoke", "disable");
         String antiRevokeStatus = prefs.getString("antiRevokeStatus", "disable");
 
-        if (!Objects.equals(antiRevokeStatus, "disable") || !Objects.equals(antiRevoke, "disable")) {
-            XposedBridge.hookMethod(antiRevokeMethod(loader), new XC_MethodHook() {
-                @Override
-                protected void beforeHookedMethod(MethodHookParam param) throws Throwable {
-                    FMessageInfo fMessageInfo = new FMessageInfo(param.args[0]);
-                    FMessageInfo.Key key = fMessageInfo.getKey();
-                    if (!key.isFromMe) {
-                        if (!Objects.equals(antiRevoke(fMessageInfo), "disable")) param.setResult(true);
-                    }
-                }
-            });
-        }
+
+        XposedBridge.hookMethod(antiRevokeMethod(loader), new XC_MethodHook() {
+            @Override
+            protected void beforeHookedMethod(MethodHookParam param) throws Throwable {
+                FMessageInfo fMessageInfo = new FMessageInfo(param.args[0]);
+                FMessageInfo.Key key = fMessageInfo.getKey();
+                String id = stripJID(getRawString(fMessageInfo.getKey().remoteJid));
+
+                if ((!antiRevoke.equals("disable") || !antiRevokeStatus.equals("disable") || getCustomPref(id, "antiRevoke")) && !key.isFromMe) {
+                    if (!antiRevoke(fMessageInfo).equals("disable")) param.setResult(true);
+                } else super.beforeHookedMethod(param);
+            }
+        });
+
 
         XposedBridge.hookMethod(resumeConv(loader), hookConv());
         XposedBridge.hookMethod(startConv(loader), hookConv());
@@ -105,10 +108,11 @@ public class AntiRevokeHook extends HooksBase {
         }
         if (messageRevokedList != null && messageRevokedList.contains(messageKey)) {
             String antiRevokeValue = prefs.getString(antiRevokeType, "disable");
-            if (Objects.equals(antiRevokeValue, "text")) {
+            if (antiRevokeValue.equals("disable") && getCustomPref(stripJID(getRawString(fMessageInfo.getKey().remoteJid)), "antiRevoke")) antiRevokeValue = "text";
+            if (antiRevokeValue.equals("text")) {
                 String newTextData = mApp.getString(message_deleted) + " | " + dateTextView.getText();
                 dateTextView.setText(newTextData);
-            } else if (Objects.equals(antiRevokeValue, "icon")) {
+            } else if (antiRevokeValue.equals("icon")) {
                 Drawable icon = mApp.getDrawable(getResourceId("ic_block_small", "drawable"));
                 icon.setColorFilter(new PorterDuffColorFilter(Color.RED, PorterDuff.Mode.SRC_ATOP));
                 dateTextView.setCompoundDrawablesWithIntrinsicBounds(icon, null, null, null);
@@ -127,8 +131,8 @@ public class AntiRevokeHook extends HooksBase {
     private String antiRevoke(FMessageInfo fMessageInfo) {
         String messageKey = (String) XposedHelpers.getObjectField(fMessageInfo.getObject(), "A01");
         String stripJID = stripJID(getRawString(fMessageInfo.getKey().remoteJid));
-        String revokeBoolean = stripJID.equals("status") ? prefs.getString("antiRevokeStatus", "disable") : prefs.getString("antiRevoke", "disable");
-        if (Objects.equals(revokeBoolean, "disable")) return revokeBoolean;
+        String revokeBoolean = stripJID.equals("status") ? prefs.getString("antiRevokeStatus", "disable") : getCustomPref(stripJID, "antiRevoke") ? "text" : prefs.getString("antiRevoke", "disable");
+        if (revokeBoolean.equals("disable")) return revokeBoolean;
         if (!messageRevokedList.contains(messageKey)) {
             try {
                 AsyncTask.THREAD_POOL_EXECUTOR.execute(() -> {

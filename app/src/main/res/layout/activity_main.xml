@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".ui.activitys.MainActivity">
+    tools:context=".app.ui.activitys.MainActivity">
 
     <androidx.fragment.app.FragmentContainerView
         android:layout_width="0dp"
@@ -28,7 +28,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">
 
-        <its.madruga.warevamp.ui.views.InfoCard
+        <its.madruga.warevamp.app.ui.views.InfoCard
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="20dp"
@@ -39,7 +39,7 @@
             app:cardCornerRadius="12dp"
             style="@style/Widget.Material3.CardView.Elevated"/>
 
-        <its.madruga.warevamp.ui.views.InfoCard
+        <its.madruga.warevamp.app.ui.views.InfoCard
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
@@ -51,7 +51,7 @@
             app:cardCornerRadius="12dp"
             style="@style/Widget.Material3.CardView.Elevated"/>
 
-        <its.madruga.warevamp.ui.views.InfoCard
+        <its.madruga.warevamp.app.ui.views.InfoCard
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"

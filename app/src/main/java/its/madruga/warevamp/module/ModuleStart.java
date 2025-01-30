@@ -17,8 +17,8 @@ import its.madruga.warevamp.BuildConfig;
 import its.madruga.warevamp.module.hooks.core.HooksLoader;
 import its.madruga.warevamp.module.hooks.media.DisableFlagSecureHook;
 import its.madruga.warevamp.module.references.ModuleResources;
-import its.madruga.warevamp.core.Utils;
-import its.madruga.warevamp.core.XposedChecker;
+import its.madruga.warevamp.app.core.Utils;
+import its.madruga.warevamp.app.core.XposedChecker;
 
 public class ModuleStart implements IXposedHookLoadPackage, IXposedHookInitPackageResources, IXposedHookZygoteInit {
     private static XSharedPreferences pref;
@@ -44,7 +44,7 @@ public class ModuleStart implements IXposedHookLoadPackage, IXposedHookInitPacka
 
         if (packageName.equals(Utils.WHATSAPP_PACKAGE) || packageName.equals(Utils.WHATSAPP_WEB_PACKAGE)) {
             HooksLoader.initialize(getPref(), classLoader, sourcePath);
-        };
+        }
 
         DisableFlagSecureHook.doHook(lpparam, getPref());
 
@@ -65,6 +65,12 @@ public class ModuleStart implements IXposedHookLoadPackage, IXposedHookInitPacka
             int resId = res.getIdentifier(field.getName(), "string", BuildConfig.APPLICATION_ID);
             int addedResId = resparam.res.addResource(res, resId);
            field.set(null, addedResId);
+        }
+
+        for (Field field : ModuleResources.array.class.getFields()) {
+            int resId = res.getIdentifier(field.getName(), "array", BuildConfig.APPLICATION_ID);
+            int addedResId = resparam.res.addResource(res, resId);
+            field.set(null, addedResId);
         }
 
         for (Field field : ModuleResources.drawable.class.getFields()) {

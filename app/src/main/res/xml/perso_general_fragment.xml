@@ -9,6 +9,6 @@
     <Preference
         android:title="@string/clean_database"
         android:summary="@string/clean_database_sum"
-        android:fragment="its.madruga.warevamp.ui.fragments.RootFragment$CleanDatabasePreference" />
+        android:fragment="its.madruga.warevamp.app.ui.fragments.RootFragment$CleanDatabasePreference" />
     </PreferenceCategory>
 </androidx.preference.PreferenceScreen>

@@ -1,5 +1,10 @@
 package its.madruga.warevamp.module.hooks.others;
 
+import static its.madruga.warevamp.module.hooks.core.HooksLoader.mApp;
+import static its.madruga.warevamp.module.references.ModuleResources.string.dnd_mode_description;
+import static its.madruga.warevamp.module.references.ModuleResources.string.dnd_mode_title;
+import static its.madruga.warevamp.module.references.ModuleResources.string.reboot_wpp;
+
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -7,18 +12,17 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.view.Menu;
 import android.view.MenuItem;
+
 import androidx.annotation.NonNull;
+
+import org.jetbrains.annotations.NotNull;
+
 import de.robv.android.xposed.XC_MethodHook;
 import de.robv.android.xposed.XSharedPreferences;
 import de.robv.android.xposed.XposedHelpers;
 import its.madruga.warevamp.BuildConfig;
-import its.madruga.warevamp.core.Receivers;
+import its.madruga.warevamp.broadcast.receivers.WhatsAppReceiver;
 import its.madruga.warevamp.module.hooks.core.HooksBase;
-
-import org.jetbrains.annotations.NotNull;
-
-import static its.madruga.warevamp.module.hooks.core.HooksLoader.mApp;
-import static its.madruga.warevamp.module.references.ModuleResources.string.*;
 
 public class MenuHook extends HooksBase {
     private static SharedPreferences prefs;
@@ -44,7 +48,7 @@ public class MenuHook extends HooksBase {
                 Activity home = (Activity) param.thisObject;
                 MenuItem menuItem = menu.add(0, 0, 0, mApp.getString(reboot_wpp));
                 menuItem.setOnMenuItemClickListener(menuItem1 -> {
-                    Receivers.doRestart(home);
+                    WhatsAppReceiver.restartWhatsapp(home);
                     return true;
                 });
                 super.afterHookedMethod(param);
@@ -64,14 +68,14 @@ public class MenuHook extends HooksBase {
                     boolean dndMode = prefs.getBoolean("dndMode", false);
                     if (dndMode) {
                         prefs.edit().putBoolean("dndMode", false).commit();
-                        Receivers.doRestart(home);
+                        WhatsAppReceiver.restartWhatsapp(home);
                     } else {
                         AlertDialog.Builder builder = new AlertDialog.Builder(home);
                         builder.setTitle(mApp.getString(dnd_mode_title));
                         builder.setMessage(mApp.getString(dnd_mode_description));
                         builder.setPositiveButton(android.R.string.ok, (dialog, which) -> {
                             prefs.edit().putBoolean("dndMode", true).commit();
-                            Receivers.doRestart(home);
+                            WhatsAppReceiver.restartWhatsapp(home);
                         });
                         builder.setNegativeButton(android.R.string.cancel, (dialog, which) -> {
                             dialog.dismiss();

@@ -5,9 +5,9 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.activitys.AboutActivity">
+    tools:context=".app.ui.activitys.AboutActivity">
 
-    <its.madruga.warevamp.ui.views.InfoCard
+    <its.madruga.warevamp.app.ui.views.InfoCard
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_margin="20dp"

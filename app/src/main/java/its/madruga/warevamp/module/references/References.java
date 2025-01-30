@@ -111,7 +111,7 @@ public class References {
     public synchronized static Class<?> keyMessageClass(ClassLoader loader) throws Exception {
         Class<?> result = getClazz("keyMessageClass");
         if (result != null) return result;
-        result = getIns().findClassByString(StringMatchType.Contains, loader, "Key(id=", ", isFromMe=", ", chatJid=");
+        result = getIns().findClassByString(StringMatchType.Contains, loader, "Key(id=", ", isFromMe=");
         if (result == null) throw new Exception("KeyMessage class not found");
         saveClassPath(result, "keyMessageClass");
         return result;
@@ -573,17 +573,6 @@ public class References {
         result = Arrays.stream(clsType.getFields()).filter(f -> f.getType().equals(menuClass)).findFirst().orElse(null);
         if (result == null) throw new Exception("iconMenuField not found");
         saveFieldPath(result, "iconMenuField");
-        return result;
-    }
-
-    // Expiration Time
-
-    public synchronized static Class<?> expirationTimeClass(ClassLoader loader) throws Exception {
-        Class<?> result = getClazz("expirationTimeClass");
-        if (result != null) return result;
-        result = getIns().findClassByString(StringMatchType.Contains, loader, "number format not valid: ");
-        if (result == null) throw new Exception("expirationTimeMethod not found");
-        saveClassPath(result, "expirationTimeClass");
         return result;
     }
 

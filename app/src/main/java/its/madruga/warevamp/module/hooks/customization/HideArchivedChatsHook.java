@@ -13,7 +13,7 @@ import de.robv.android.xposed.XC_MethodHook;
 import de.robv.android.xposed.XSharedPreferences;
 import de.robv.android.xposed.XposedBridge;
 import de.robv.android.xposed.XposedHelpers;
-import its.madruga.warevamp.core.Utils;
+import its.madruga.warevamp.app.core.Utils;
 import its.madruga.warevamp.module.core.WppUtils;
 import its.madruga.warevamp.module.hooks.core.HooksBase;
 

@@ -4,7 +4,7 @@ import static its.madruga.warevamp.module.references.References.freezeLastSeenMe
 
 import androidx.annotation.NonNull;
 
-import de.robv.android.xposed.XC_MethodHook;
+import de.robv.android.xposed.XC_MethodReplacement;
 import de.robv.android.xposed.XSharedPreferences;
 import de.robv.android.xposed.XposedBridge;
 import its.madruga.warevamp.module.hooks.core.HooksBase;
@@ -22,12 +22,6 @@ public class FreezeLastSeenHook extends HooksBase {
 
         if (!freeze) return;
 
-        XposedBridge.hookMethod(freezeLastSeenMethod(loader), new XC_MethodHook() {
-            @Override
-            protected void beforeHookedMethod(MethodHookParam param) throws Throwable {
-                if (freeze) param.setResult(null);
-                else super.beforeHookedMethod(param);
-            }
-        });
+        XposedBridge.hookMethod(freezeLastSeenMethod(loader), XC_MethodReplacement.DO_NOTHING);
     }
 }

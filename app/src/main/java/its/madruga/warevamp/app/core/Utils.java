@@ -1,4 +1,4 @@
-package its.madruga.warevamp.core;
+package its.madruga.warevamp.app.core;
 
 
 import its.madruga.warevamp.App;

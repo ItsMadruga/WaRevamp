@@ -3,13 +3,13 @@
     <Preference
         android:title="@string/home"
         android:icon="@drawable/twotone_home_24"
-        android:fragment="its.madruga.warevamp.ui.fragments.RootFragment$PersoHomePreference"
+        android:fragment="its.madruga.warevamp.app.ui.fragments.RootFragment$PersoHomePreference"
         android:summary="@string/home_sum" />
 
     <Preference
         android:title="@string/conv"
         android:icon="@drawable/twotone_chat_24"
-        android:fragment="its.madruga.warevamp.ui.fragments.RootFragment$PersoConvPreference"
+        android:fragment="its.madruga.warevamp.app.ui.fragments.RootFragment$PersoConvPreference"
         android:summary="@string/conv_sum"/>
 
 </androidx.preference.PreferenceScreen>

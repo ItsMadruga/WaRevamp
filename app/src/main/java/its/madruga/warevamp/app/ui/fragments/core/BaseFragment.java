@@ -1,4 +1,4 @@
-package its.madruga.warevamp.ui.fragments.core;
+package its.madruga.warevamp.app.ui.fragments.core;
 
 import android.os.Bundle;
 import android.view.View;

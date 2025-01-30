@@ -4,13 +4,27 @@
         <item>com.whatsapp</item>
     </string-array>
     <string-array name="antirevoke_entries">
-        <item>Disabled</item>
-        <item>Show Text</item>
-        <item>Show Icon</item>
+        <item>@string/module_disable</item>
+        <item>@string/antirevoke_show_text</item>
+        <item>@string/antirevoke_show_icon</item>
     </string-array>
     <string-array name="antirevoke_values">
         <item>disable</item>
         <item>text</item>
         <item>icon</item>
+    </string-array>
+    <string-array name="custom_priv_entries">
+        <item>@string/antirevoke</item>
+        <item>@string/hidereceipt</item>
+        <item>@string/hide_read</item>
+        <item>@string/hide_typing</item>
+        <item>@string/hide_recording</item>
+    </string-array>
+    <string-array name="custom_priv_values">
+        <item>antiRevoke</item>
+        <item>hideReceipt</item>
+        <item>hide_read</item>
+        <item>hide_typing</item>
+        <item>hide_recording</item>
     </string-array>
 </resources>

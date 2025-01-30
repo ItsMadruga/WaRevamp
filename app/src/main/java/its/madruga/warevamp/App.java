@@ -7,6 +7,9 @@ import com.google.android.material.color.DynamicColors;
 import java.util.ArrayList;
 import java.util.List;
 
+import its.madruga.warevamp.broadcast.receivers.ModuleReceiver;
+import its.madruga.warevamp.broadcast.senders.ModuleSender;
+
 public class App extends Application {
     private static App instance;
 
@@ -16,6 +19,8 @@ public class App extends Application {
         instance = this;
         DynamicColors.applyToActivitiesIfAvailable(this);
         antiMinifyString();
+        ModuleSender.start();
+        ModuleReceiver.start();
     }
 
     public void antiMinifyString() {
