@@ -94,7 +94,7 @@ public class CustomPrivacyHook extends HooksBase {
         mList.setEntries(entries);
         mList.setEntryValues(values);
         mList.setTitle(mApp.getString(custom_privacy));
-        mList.setIcon(mApp.getDrawable(WppUtils.getResourceId("ic_stars", "drawable")));
+        mList.setIcon(mApp.getDrawable(WppUtils.getResourceId("settings_security", "drawable")));
         mList.setDialogTitle(mApp.getString(custom_privacy));
         mList.setKey(id);
         return mList;
