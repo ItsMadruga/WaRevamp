@@ -1,6 +1,6 @@
 {
   "version": "0.0.7",
   "date": "30-01-2025",
-  "link": "https://t.me/warevampmodule/84",
+  "link": "https://t.me/warevampmodule/85",
   "changelog": "| ADDED |\n\n- Custom privacy for chats and groups.\n- Pt-Br tradution\n\n| FIXED |\n\n- Anti-Revoking messages did not erase your messages.\n- Others minor errors"
 }
