@@ -1,6 +1,7 @@
 | ADDED |
 
 - Custom privacy for chats and groups.
+- Pt-Br tradution
 
 | FIXED |
 
