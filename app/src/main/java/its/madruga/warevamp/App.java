@@ -31,7 +31,13 @@ public class App extends Application {
         list.add(R.string.dnd_mode_title);
         list.add(R.string.dnd_mode_description);
         list.add(R.string.clean_database_ok);
+        list.add(R.string.custom_privacy);
+        list.add(R.string.tab_groups);
+        list.add(R.string.download_viewonce);
+        list.add(R.array.custom_priv_entries);
+        list.add(R.array.custom_priv_values);
         list.add(R.drawable.download_icon);
+        list.add(R.drawable.twotone_auto_awesome_24);
     }
 
     public static App getInstance() {
