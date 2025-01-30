@@ -1,11 +1,10 @@
-package its.madruga.warevamp.ui.views;
+package its.madruga.warevamp.app.ui.views;
 
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.text.SpannableString;
 import android.util.AttributeSet;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;

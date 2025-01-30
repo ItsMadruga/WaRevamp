@@ -1,5 +1,8 @@
 package its.madruga.warevamp.module.hooks.privacy;
 
+import static its.madruga.warevamp.module.core.WppUtils.getRawString;
+import static its.madruga.warevamp.module.core.WppUtils.stripJID;
+import static its.madruga.warevamp.module.hooks.functions.CustomPrivacyHook.getCustomPref;
 import static its.madruga.warevamp.module.references.References.typingAndRecordingMethod;
 
 import androidx.annotation.NonNull;
@@ -21,17 +24,16 @@ public class HideTypingRecordingHook extends HooksBase {
         boolean hide_typing = prefs.getBoolean("hide_typing", false);
         boolean hide_recording = prefs.getBoolean("hide_recording", false);
 
-        if (!hide_typing && !hide_recording) return;
-
         XposedBridge.hookMethod(typingAndRecordingMethod(loader), new XC_MethodHook() {
             @Override
             protected void beforeHookedMethod(MethodHookParam param) throws Throwable {
+                String stripJID = stripJID(getRawString(param.args[1]));
                 var p1 = (int) param.args[2];
-                if (p1 == 1 && hide_recording) {
+                if (p1 == 1 && (hide_recording || getCustomPref(stripJID, "hide_recording"))) {
                     param.setResult(null);
                     return;
                 }
-                if (p1 == 0 && hide_typing) {
+                if (p1 == 0 && (hide_typing || getCustomPref(stripJID, "hide_typing"))) {
                     param.setResult(null);
                     return;
                 }

@@ -5,7 +5,7 @@
     app:startDestination="@id/root">
     <fragment
         android:id="@+id/root"
-        android:name="its.madruga.warevamp.ui.fragments.RootFragment"
+        android:name="its.madruga.warevamp.app.ui.fragments.RootFragment"
         android:label="MainFragment" />
 
 </navigation>

@@ -1,4 +1,4 @@
-package its.madruga.warevamp.ui.activitys;
+package its.madruga.warevamp.app.ui.activitys;
 
 import android.content.Intent;
 import android.graphics.Typeface;

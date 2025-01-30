@@ -1,17 +1,19 @@
 package its.madruga.warevamp.module.core;
 
+import static its.madruga.warevamp.broadcast.receivers.WhatsAppReceiver.restartWhatsapp;
+
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Application;
 import android.os.Bundle;
 import android.widget.Toast;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
-import static its.madruga.warevamp.core.Receivers.doRestart;
-import static its.madruga.warevamp.core.Receivers.needRestart;
-
 public class WppCallback implements Application.ActivityLifecycleCallbacks {
+    public static boolean needRestart = false;
+
     @Override
     public void onActivityCreated(@NonNull Activity activity, @Nullable Bundle bundle) {
     }
@@ -28,7 +30,7 @@ public class WppCallback implements Application.ActivityLifecycleCallbacks {
             builder.setTitle("Rebooting");
             builder.setMessage("Rebooting " + activity.getPackageName());
             builder.setPositiveButton("OK", (dialogInterface, i) -> {
-                if (!doRestart(activity)) {
+                if (!restartWhatsapp(activity)) {
                     Toast.makeText(activity, "Unable to rebooting ", Toast.LENGTH_SHORT).show();
                 }
             });
@@ -36,6 +38,7 @@ public class WppCallback implements Application.ActivityLifecycleCallbacks {
             builder.show();
         }
     }
+
 
     @Override
     public void onActivityPaused(@NonNull Activity activity) {

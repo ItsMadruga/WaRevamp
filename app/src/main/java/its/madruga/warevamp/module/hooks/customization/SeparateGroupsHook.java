@@ -10,7 +10,7 @@ import de.robv.android.xposed.XC_MethodHook;
 import de.robv.android.xposed.XSharedPreferences;
 import de.robv.android.xposed.XposedBridge;
 import de.robv.android.xposed.XposedHelpers;
-import its.madruga.warevamp.module.core.db.MessageStore;
+import its.madruga.warevamp.module.core.databases.MsgstoreDatabase;
 import its.madruga.warevamp.module.hooks.core.HooksBase;
 import org.jetbrains.annotations.NotNull;
 
@@ -19,6 +19,8 @@ import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.util.*;
 
+import static its.madruga.warevamp.module.hooks.core.HooksLoader.mApp;
+import static its.madruga.warevamp.module.references.ModuleResources.string.tab_groups;
 import static its.madruga.warevamp.module.references.References.*;
 import static its.madruga.warevamp.module.references.ReferencesUtils.getFieldByExtendType;
 import static its.madruga.warevamp.module.references.ReferencesUtils.getFieldByType;
@@ -66,6 +68,7 @@ public class SeparateGroupsHook extends HooksBase {
             protected void afterHookedMethod(MethodHookParam param) throws Throwable {
                 var object = param.args[2];
                 var desc = XposedHelpers.getObjectField(object, "A06");
+                log(desc != null ? desc.toString() : "void");
                 if (desc == null) return;
                 var split = desc.toString().split(":");
                 var id = 0;
@@ -154,7 +157,7 @@ public class SeparateGroupsHook extends HooksBase {
                     int chatCount = 0;
                     int groupCount = 0;
                     synchronized (SeparateGroupsHook.class) {
-                        var db = MessageStore.getInstance().getDatabase();
+                        var db = MsgstoreDatabase.getInstance().getDatabase();
                         var sql = "SELECT * FROM chat WHERE unseen_message_count != 0";
                         var cursor = db.rawQuery(sql, null);
                         while (cursor.moveToNext()) {
@@ -240,7 +243,7 @@ public class SeparateGroupsHook extends HooksBase {
                 super.beforeHookedMethod(param);
                 var tab = (int) param.args[0];
                 if (tab == GROUPS) {
-                    param.setResult("Groups");
+                    param.setResult(mApp.getString(tab_groups));
                 }
             }
         });
