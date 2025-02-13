@@ -6,8 +6,8 @@
     <string name="module_status">Status do Módulo:</string>
     <string name="module_disable">Desativado</string>
     <string name="module_enable">Ativado</string>
-    <string name="module_author">Autor: I\'ts Madruga</string>
-    <string name="module_telegram">Canal no Telegram: @warevampmodule</string>
+    <string name="module_author">Autor:</string>
+    <string name="module_telegram">Canal no Telegram:</string>
     <string name="module_update_avaliable">Atualização Disponível</string>
     <string name="module_update_summary">Clique para mais informações.</string>
     <string name="module_update">Atualizar</string>
