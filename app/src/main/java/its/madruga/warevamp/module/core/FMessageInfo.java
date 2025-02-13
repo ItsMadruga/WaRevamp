@@ -65,7 +65,6 @@ public class FMessageInfo {
         try {
             return mediaMessageClass.isInstance(messageObject);
         } catch (Exception e) {
-            XposedBridge.log(e.getMessage() + " | " + (mediaMessageClass == null ? "MediaMessageClass" : "MessageObject"));
             return false;
         }
     }
@@ -73,7 +72,6 @@ public class FMessageInfo {
     public File getMediaFile() {
         try {
             if (!isMediaFile()) {
-                XposedBridge.log("Not Media file");
                 return null;
             }
             for (var field : mediaMessageClass.getDeclaredFields()) {
@@ -82,8 +80,6 @@ public class FMessageInfo {
                 if (fileField != null) {
                     var mediaFile = ReferencesUtils.getObjectField(field, messageObject);
                     return (File) fileField.get(mediaFile);
-                } else {
-                    XposedBridge.log("File field is null!!");
                 }
             }
         } catch (Exception e) {

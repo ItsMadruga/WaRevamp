@@ -61,11 +61,13 @@ public class MainActivity extends AppCompatActivity {
         infoCard.setTitle(App.getInstance().getString(R.string.app_name));
         infoCard.setSubTitle(App.getInstance().getString(R.string.app_desc));
 
-        SpannableString versionString = new SpannableString(App.getInstance().getString(R.string.module_status) + " " + (XposedChecker.isActive() ? App.getInstance().getString(R.string.module_enable) : App.getInstance().getString(R.string.module_disable)));
+        String module_status = App.getInstance().getString(R.string.module_status);
 
-        versionString.setSpan(new StyleSpan(Typeface.BOLD), 0, 15, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        SpannableString versionString = new SpannableString(module_status + " " + (XposedChecker.isActive() ? App.getInstance().getString(R.string.module_enable) : App.getInstance().getString(R.string.module_disable)));
 
-        versionString.setSpan(new ForegroundColorSpan(XposedChecker.isActive() ? MaterialColors.getColor(binding.getRoot(), com.google.android.material.R.attr.colorPrimary) : Color.RED), 15, versionString.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        versionString.setSpan(new StyleSpan(Typeface.BOLD), 0, module_status.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+
+        versionString.setSpan(new ForegroundColorSpan(XposedChecker.isActive() ? MaterialColors.getColor(binding.getRoot(), com.google.android.material.R.attr.colorPrimary) : Color.RED), module_status.length(), versionString.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
 
         infoCard.setVersion(versionString);
 
@@ -83,19 +85,26 @@ public class MainActivity extends AppCompatActivity {
         new ModuleReceiver().registerReceiver(Events.ACTION_WA_REVAMP_ENABLED, new BroadcastReceiver() {
             @Override
             public void onReceive(Context context, Intent intent) {
-                var appVersion = intent.getStringExtra("version");
+                String appVersion = intent.getStringExtra("version");
 
-                SpannableString versionString1 = new SpannableString(App.getInstance().getString(R.string.whatsapp_version) + " " + appVersion);
-                versionString1.setSpan(new StyleSpan(Typeface.BOLD), 0, 18, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-                versionString1.setSpan(new ForegroundColorSpan(MaterialColors.getColor(binding.getRoot(), com.google.android.material.R.attr.colorPrimary)), 18, versionString1.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+                String whatsapp_version = App.getInstance().getString(R.string.whatsapp_version);
+
+                SpannableString versionString1 = new SpannableString( whatsapp_version + " " + appVersion);
+
+                versionString1.setSpan(new StyleSpan(Typeface.BOLD), 0, whatsapp_version.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+
+                versionString1.setSpan(new ForegroundColorSpan(MaterialColors.getColor(binding.getRoot(), com.google.android.material.R.attr.colorPrimary)), whatsapp_version.length(), versionString1.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
                 infoCard.setWaVersion(versionString1);
 
                 SpannableString rebootString = new SpannableString(App.getInstance().getString(R.string.reboot_wpp));
+
                 rebootString.setSpan(new StyleSpan(Typeface.BOLD), 0, rebootString.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+
                 rebootString.setSpan(new ForegroundColorSpan(MaterialColors.getColor(binding.getRoot(), com.google.android.material.R.attr.colorPrimary)), 0, rebootString.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
                 wppReboot.setSubTitle(rebootString);
 
                 binding.wppReboot.setVisibility(View.VISIBLE);
+
                 wppReboot.setEnabled(true);
 
             }

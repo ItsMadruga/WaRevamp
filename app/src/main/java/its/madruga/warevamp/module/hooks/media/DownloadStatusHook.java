@@ -61,7 +61,7 @@ public class DownloadStatusHook extends HooksBase {
 
                 int index = (int) XposedHelpers.getObjectField(fragmentInstance, "A00");
                 List<?> listStatus = (List<?>) listStatusField.get(fragmentInstance);
-                FMessageInfo messageInfo = new FMessageInfo(listStatus.get(index));
+                FMessageInfo messageInfo = new FMessageInfo(XposedHelpers.getObjectField(listStatus.get(index), "A00"));
 
                 File file = messageInfo.getMediaFile();
                 MenuItem menuItem = menu.findItem(download_status);

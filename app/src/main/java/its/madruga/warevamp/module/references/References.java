@@ -236,10 +236,21 @@ public class References {
         MethodDataList methodDataList = dexKitBridge.findMethod(new FindMethod()
                 .searchPackages("com.whatsapp.status.playback.fragment")
                 .matcher(new MethodMatcher()
-                        .addUsingString("xFamilyCrosspostManager", StringMatchType.Contains)
-                        .addUsingString("xFamilyGating", StringMatchType.Contains)));
+                        .addUsingNumber(11818)
+                )
+        );
         if (methodDataList.isEmpty()) throw new Exception("unknownStatusPlayback method not found");
         result = methodDataList.get(0).getMethodInstance(loader);
+        methodDataList = dexKitBridge.findMethod(new FindMethod()
+                .searchPackages("com.whatsapp.status.playback.fragment")
+                .matcher(new MethodMatcher()
+                        .addParamType(result.getParameters()[0].getType())
+                        .addParamType(result.getParameters()[1].getType())
+                )
+        );
+        if (methodDataList.isEmpty()) throw new Exception("unknownStatusPlayback method not found");
+        result = methodDataList.get(0).getMethodInstance(loader);
+
         saveMethodPath(result, "unknownStatusPlaybackMethod");
         return result;
     }
@@ -685,15 +696,6 @@ public class References {
             }
         }
         throw new Exception("MenuManager class not found");
-    }
-
-    public synchronized static Method setPageActiveMethod(ClassLoader loader) throws Exception {
-        Method result = getMethod("setPageActiveMethod");
-        if (result != null) return result;
-        result = getIns().findMethodByString(StringMatchType.Contains, loader, "playbackFragment/setPageActive no-messages");
-        if (result == null) throw new Exception("setPageActiveMethod not found");
-        saveMethodPath(result, "setPageActiveMethod");
-        return result;
     }
 
     public synchronized static Method  menuStatusClickMethod(ClassLoader loader) throws Exception {
