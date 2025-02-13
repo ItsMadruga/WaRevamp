@@ -34,10 +34,14 @@ public class AboutActivity extends AppCompatActivity {
     }
 
     public void setupInfoCard() {
-        SpannableString authorName = new SpannableString(App.getInstance().getString(R.string.module_author));
-        authorName.setSpan(new StyleSpan(Typeface.BOLD), 0, 7, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-        authorName.setSpan(new StyleSpan(Typeface.ITALIC), 7 , authorName.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-        authorName.setSpan(new ForegroundColorSpan(MaterialColors.getColor(binding.getRoot(), com.google.android.material.R.attr.colorPrimary)), 8, authorName.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        String module_author = App.getInstance().getString(R.string.module_author);
+        SpannableString authorName = new SpannableString(module_author + " I'ts Madruga");
+
+        authorName.setSpan(new StyleSpan(Typeface.BOLD), 0, module_author.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+
+        authorName.setSpan(new StyleSpan(Typeface.ITALIC), module_author.length() , authorName.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+
+        authorName.setSpan(new ForegroundColorSpan(MaterialColors.getColor(binding.getRoot(), com.google.android.material.R.attr.colorPrimary)), module_author.length(), authorName.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
 
         binding.infos.setVersion(authorName);
 
@@ -45,10 +49,15 @@ public class AboutActivity extends AppCompatActivity {
             startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://github.com/ItsMadruga")));
         });
 
-        SpannableString telegramChannel = new SpannableString(App.getInstance().getString(R.string.module_telegram));
-        telegramChannel.setSpan(new StyleSpan(Typeface.BOLD), 0, 18, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-        telegramChannel.setSpan(new StyleSpan(Typeface.ITALIC), 18, telegramChannel.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-        telegramChannel.setSpan(new ForegroundColorSpan(MaterialColors.getColor(binding.getRoot(), com.google.android.material.R.attr.colorPrimary)), 18, telegramChannel.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        String module_telegram = App.getInstance().getString(R.string.module_telegram);
+
+        SpannableString telegramChannel = new SpannableString(module_telegram + " @warevampmodule");
+
+        telegramChannel.setSpan(new StyleSpan(Typeface.BOLD), 0, module_telegram.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+
+        telegramChannel.setSpan(new StyleSpan(Typeface.ITALIC), module_telegram.length(), telegramChannel.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+
+        telegramChannel.setSpan(new ForegroundColorSpan(MaterialColors.getColor(binding.getRoot(), com.google.android.material.R.attr.colorPrimary)), module_telegram.length(), telegramChannel.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
 
         binding.infos.setWaVersion(telegramChannel);
 

@@ -1,6 +1,6 @@
 {
-  "version": "0.0.7",
-  "date": "30-01-2025",
-  "link": "https://t.me/warevampmodule/86",
-  "changelog": "| ADDED |\n\n- Custom privacy for chats and groups.\n- Pt-Br tradution\n\n| FIXED |\n\n- Anti-Revoking messages did not erase your messages.\n- Others minor errors"
+  "version": "0.0.8",
+  "date": "12-02-2025",
+  "link": "https://t.me/warevampmodule/89",
+  "changelog": "| ADDED |\n\n- Support to 2.25.3.x\n\n| FIXED |\n\n- Anti-Revoke\n- Download Status\n- Module Ui\n\n| NOTICE |\n\nThe module now has support for whatsapp 2.25.3.x and above, any error present in the versions below this will be ignored."
 }

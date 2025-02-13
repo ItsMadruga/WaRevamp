@@ -26,6 +26,7 @@ import its.madruga.warevamp.BuildConfig;
 import its.madruga.warevamp.module.core.FMessageInfo;
 import its.madruga.warevamp.module.hooks.core.HooksBase;
 
+import java.lang.reflect.Field;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashSet;
@@ -78,10 +79,10 @@ public class AntiRevokeHook extends HooksBase {
         XposedBridge.hookMethod(unknownStatusPlaybackMethod(loader), new XC_MethodHook() {
             @Override
             protected void afterHookedMethod(MethodHookParam param) throws Throwable {
-                FMessageInfo fMessageInfo = new FMessageInfo(param.args[0]);
+                FMessageInfo fMessageInfo = new FMessageInfo(XposedHelpers.getObjectField(param.args[0], "A00"));
                 Object obj = param.args[1];
                 Object objView = statusPlaybackField(loader).get(obj);
-                TextView dateTextView = (TextView) XposedHelpers.getObjectField(objView, "A0D");
+                TextView dateTextView = (TextView) XposedHelpers.getObjectField(objView, "A0F");
                 isMRevoked(fMessageInfo, dateTextView, "antiRevokeStatus");
             }
         });
@@ -108,7 +109,7 @@ public class AntiRevokeHook extends HooksBase {
         }
         if (messageRevokedList != null && messageRevokedList.contains(messageKey)) {
             String antiRevokeValue = prefs.getString(antiRevokeType, "disable");
-            if (antiRevokeValue.equals("disable") && getCustomPref(stripJID(getRawString(fMessageInfo.getKey().remoteJid)), "antiRevoke")) antiRevokeValue = "text";
+            if (antiRevokeValue.equals("disable") && !getCustomPref(stripJID(getRawString(fMessageInfo.getKey().remoteJid)), "antiRevoke")) antiRevokeValue = "text";
             if (antiRevokeValue.equals("text")) {
                 String newTextData = mApp.getString(message_deleted) + " | " + dateTextView.getText();
                 dateTextView.setText(newTextData);
