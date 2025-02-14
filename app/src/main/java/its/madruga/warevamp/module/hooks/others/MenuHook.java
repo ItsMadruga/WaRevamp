@@ -22,6 +22,7 @@ import de.robv.android.xposed.XSharedPreferences;
 import de.robv.android.xposed.XposedHelpers;
 import its.madruga.warevamp.BuildConfig;
 import its.madruga.warevamp.broadcast.receivers.WhatsAppReceiver;
+import its.madruga.warevamp.module.core.WppUtils;
 import its.madruga.warevamp.module.hooks.core.HooksBase;
 
 public class MenuHook extends HooksBase {
@@ -51,6 +52,8 @@ public class MenuHook extends HooksBase {
                     WhatsAppReceiver.restartWhatsapp(home);
                     return true;
                 });
+                menuItem.setIcon(mApp.getDrawable(WppUtils.getResourceId("rotating_arrow", "drawable")));
+
                 super.afterHookedMethod(param);
             }
         });

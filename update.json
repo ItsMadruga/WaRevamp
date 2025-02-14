@@ -1,6 +1,6 @@
 {
-  "version": "0.0.8",
-  "date": "12-02-2025",
-  "link": "https://t.me/warevampmodule/89",
-  "changelog": "| ADDED |\n\n- Support to 2.25.3.x\n\n| FIXED |\n\n- Anti-Revoke\n- Download Status\n- Module Ui\n\n| NOTICE |\n\nThe module now has support for whatsapp 2.25.3.x and above, any error present in the versions below this will be ignored."
+  "version": "0.0.9",
+  "date": "13-02-2025",
+  "link": "https://t.me/warevampmodule/90",
+  "changelog": "| ADDED |\n\n- Support to 2.25.3.x and 2.25.4.x\n\n| FIXED |\n\n- Anti-Revoke\n\n| NOTICE |\n\n- New functions soon"
 }

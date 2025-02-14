@@ -80,7 +80,7 @@ public class AntiRevokeHook extends HooksBase {
             @Override
             protected void afterHookedMethod(MethodHookParam param) throws Throwable {
                 FMessageInfo fMessageInfo = new FMessageInfo(XposedHelpers.getObjectField(param.args[0], "A00"));
-                Object obj = param.args[1];
+                Object obj = Arrays.stream(param.args).filter(a -> a.getClass().equals(param.method.getDeclaringClass())).findFirst().orElse(null);
                 Object objView = statusPlaybackField(loader).get(obj);
                 TextView dateTextView = (TextView) XposedHelpers.getObjectField(objView, "A0F");
                 isMRevoked(fMessageInfo, dateTextView, "antiRevokeStatus");
@@ -99,8 +99,8 @@ public class AntiRevokeHook extends HooksBase {
     }
 
     private void isMRevoked(FMessageInfo fMessageInfo, TextView dateTextView, String antiRevokeType) {
-        if (dateTextView == null) return;
         messageRevokedList.clear();
+        if (dateTextView == null || fMessageInfo == null) return;
         String messageKey = fMessageInfo.getKey().messageID;
         if (messageRevokedList.isEmpty()) {
             String[] currentRevokedMessages = getRevokedMessages(fMessageInfo);

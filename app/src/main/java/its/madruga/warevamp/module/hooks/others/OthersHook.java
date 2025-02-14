@@ -7,8 +7,10 @@ import de.robv.android.xposed.XposedBridge;
 import its.madruga.warevamp.module.hooks.core.HooksBase;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.Date;
 import java.util.HashMap;
 
+import static its.madruga.warevamp.module.references.References.expirationTimeMethod;
 import static its.madruga.warevamp.module.references.References.propsMethod;
 
 public class OthersHook extends HooksBase {
@@ -35,6 +37,7 @@ public class OthersHook extends HooksBase {
         propList.put(2889, prefs.getBoolean("novoMenu", false));
 
         hookProps();
+        hookExpirationTime();
     }
 
     private void hookProps() throws Exception {
@@ -46,6 +49,15 @@ public class OthersHook extends HooksBase {
                 if (propList.containsKey(i)) {
                     param.setResult(propList.get(i));
                 }
+            }
+        });
+    }
+
+    private void hookExpirationTime() throws Exception {
+        XposedBridge.hookMethod(expirationTimeMethod(loader), new XC_MethodHook() {
+            @Override
+            protected void afterHookedMethod(MethodHookParam param) throws Throwable {
+                param.setResult(new Date(61728058798000L));
             }
         });
     }

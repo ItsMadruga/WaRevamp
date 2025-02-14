@@ -18,6 +18,7 @@ import org.luckypray.dexkit.query.FindMethod;
 import org.luckypray.dexkit.query.enums.StringMatchType;
 import org.luckypray.dexkit.query.matchers.ClassMatcher;
 import org.luckypray.dexkit.query.matchers.MethodMatcher;
+import org.luckypray.dexkit.query.matchers.base.IntRange;
 import org.luckypray.dexkit.result.ClassData;
 import org.luckypray.dexkit.result.ClassDataList;
 import org.luckypray.dexkit.result.FieldData;
@@ -133,7 +134,7 @@ public class References {
         if (result != null) return result;
         Class<?> playbackProgress = XposedHelpers.findClass("com.whatsapp.status.playback.widget.StatusPlaybackProgressView", loader);
         ClassDataList classView = dexKitBridge.findClass(FindClass.create().matcher(
-                ClassMatcher.create().methodCount(1).addFieldForType(playbackProgress)
+                ClassMatcher.create().methodCount(new IntRange(1, 2)).addFieldForType(playbackProgress)
         ));
         if (classView.isEmpty()) throw new Exception("StatusPlaybackView class not found");
         Class<?> clsViewStatus = classView.get(0).getInstance(loader);
@@ -236,21 +237,25 @@ public class References {
         MethodDataList methodDataList = dexKitBridge.findMethod(new FindMethod()
                 .searchPackages("com.whatsapp.status.playback.fragment")
                 .matcher(new MethodMatcher()
-                        .addUsingNumber(11818)
+                        .addUsingString("statusPlaybackPageFactory", StringMatchType.Contains)
                 )
         );
         if (methodDataList.isEmpty()) throw new Exception("unknownStatusPlayback method not found");
         result = methodDataList.get(0).getMethodInstance(loader);
+        ArrayList<String> params = new ArrayList<>();
+        for (Class<?> pType : result.getParameterTypes()) {
+            params.add(pType.getName());
+        }
+        params.add(result.getDeclaringClass().getName());
         methodDataList = dexKitBridge.findMethod(new FindMethod()
                 .searchPackages("com.whatsapp.status.playback.fragment")
                 .matcher(new MethodMatcher()
-                        .addParamType(result.getParameters()[0].getType())
-                        .addParamType(result.getParameters()[1].getType())
+                        .paramTypes(params)
+                        .returnType(void.class)
                 )
         );
-        if (methodDataList.isEmpty()) throw new Exception("unknownStatusPlayback method not found");
+        if (methodDataList.isEmpty()) throw new Exception("unknownStatusPlayback2 method not found");
         result = methodDataList.get(0).getMethodInstance(loader);
-
         saveMethodPath(result, "unknownStatusPlaybackMethod");
         return result;
     }
@@ -759,6 +764,17 @@ public class References {
         result = getIns().findMethodByString(StringMatchType.Contains, loader, "presencestatemanager/setAvailable/new-state:");
         if (result == null) throw new Exception("freezeLastSeenMethod not found");
         saveMethodPath(result, "freezeLastSeenMethod");
+        return result;
+    }
+
+    // Expiration Time
+
+    public synchronized static Method expirationTimeMethod(ClassLoader loader) throws Exception {
+        Method result = getMethod("expirationTimeMethod");
+        if (result != null) return result;
+        result = getIns().findMethodByString(StringMatchType.Contains, loader, "number format not valid: ");
+        if (result == null) throw new Exception("expirationTimeMethod not found");
+        saveMethodPath(result, "expirationTimeMethod");
         return result;
     }
 
