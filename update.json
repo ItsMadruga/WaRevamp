@@ -2,5 +2,5 @@
   "version": "0.0.9",
   "date": "13-02-2025",
   "link": "https://t.me/warevampmodule/90",
-  "changelog": "| ADDED |\n\n- Support to 2.25.3.x and 2.25.4.x\n\n| FIXED |\n\n- Anti-Revoke\n\n| NOTICE |\n\n- New functions soon"
+  "changelog": "| ADDED |\n\n- Support to 2.25.3.x and 2.25.4.x\n- Remove expiration time\n\n| FIXED |\n\n- Anti-Revoke\n\n| NOTICE |\n\n- New functions soon"
 }
