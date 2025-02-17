@@ -38,6 +38,7 @@ public class App extends Application {
         list.add(R.array.custom_priv_values);
         list.add(R.drawable.download_icon);
         list.add(R.drawable.twotone_auto_awesome_24);
+        list.add(R.drawable.round_wifi_24);
     }
 
     public static App getInstance() {
