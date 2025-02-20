@@ -84,4 +84,5 @@
     <string name="antirevoke_show_text">Show text</string>
     <string name="antirevoke_show_icon">Show icon</string>
     <string name="tab_groups">Groups</string>
+    <string name="reject_call">Reject</string>
 </resources>

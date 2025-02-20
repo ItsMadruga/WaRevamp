@@ -17,6 +17,14 @@
             android:entries="@array/antirevoke_entries"
             android:entryValues="@array/antirevoke_values"/>
     </PreferenceCategory>
+    <PreferenceCategory android:title="Call" >
+        <rikka.preference.SimpleMenuPreference
+            android:title="Call Privacy"
+            android:defaultValue="disable"
+            android:key="callPrivacy"
+            android:entries="@array/call_entries"
+            android:entryValues="@array/call_values"/>
+    </PreferenceCategory>
     <PreferenceCategory
         android:title="@string/viewonce" >
     <rikka.material.preference.MaterialSwitchPreference

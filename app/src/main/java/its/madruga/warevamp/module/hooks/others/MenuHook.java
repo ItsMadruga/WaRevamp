@@ -2,6 +2,7 @@ package its.madruga.warevamp.module.hooks.others;
 
 import static its.madruga.warevamp.module.hooks.core.HooksLoader.mApp;
 import static its.madruga.warevamp.module.references.ModuleResources.drawable.round_wifi_24;
+import static its.madruga.warevamp.module.references.ModuleResources.drawable.wifi_off_24px;
 import static its.madruga.warevamp.module.references.ModuleResources.string.dnd_mode_description;
 import static its.madruga.warevamp.module.references.ModuleResources.string.dnd_mode_title;
 import static its.madruga.warevamp.module.references.ModuleResources.string.reboot_wpp;
@@ -70,7 +71,7 @@ public class MenuHook extends HooksBase {
                 Menu menu = (Menu) param.args[0];
                 Activity home = (Activity) param.thisObject;
                 MenuItem menuItem = menu.add(0, 0, 0, mApp.getString(dnd_mode_title));
-                menuItem.setIcon(dndMode ? mApp.getDrawable(round_wifi_24) : mApp.getDrawable(round_wifi_24));
+                menuItem.setIcon(dndMode ? mApp.getDrawable(wifi_off_24px) : mApp.getDrawable(round_wifi_24));
                 menuItem.setOnMenuItemClickListener(menuItem1 -> {
                     if (dndMode) {
                         prefs.edit().putBoolean("dndMode", false).commit();

@@ -8,6 +8,7 @@ public class ModuleResources {
         public static int download_icon;
         public static int twotone_auto_awesome_24;
         public static int round_wifi_24;
+        public static int wifi_off_24px;
     }
 
     public static class string {

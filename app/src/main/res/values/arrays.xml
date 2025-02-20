@@ -27,4 +27,12 @@
         <item>hide_typing</item>
         <item>hide_recording</item>
     </string-array>
+    <string-array name="call_entries">
+        <item>@string/module_disable</item>
+        <item>@string/reject_call</item>
+    </string-array>
+    <string-array name="call_values">
+        <item>disable</item>
+        <item>reject</item>
+    </string-array>
 </resources>
