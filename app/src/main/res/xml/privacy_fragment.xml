@@ -17,6 +17,18 @@
             android:entries="@array/antirevoke_entries"
             android:entryValues="@array/antirevoke_values"/>
     </PreferenceCategory>
+    <PreferenceCategory android:title="@string/tab_calls" >
+        <rikka.preference.SimpleMenuPreference
+            android:title="@string/reject_call"
+            android:summary="@string/reject_call_sum"
+            android:defaultValue="disable"
+            android:entries="@array/call_privacy_entries"
+            android:entryValues="@array/call_privacy_values"
+            android:key="reject_call"/>
+        <rikka.material.preference.MaterialSwitchPreference
+            android:summary="@string/reject_call_toast"
+            android:key="reject_call_toast" />
+    </PreferenceCategory>
     <PreferenceCategory
         android:title="@string/viewonce" >
     <rikka.material.preference.MaterialSwitchPreference

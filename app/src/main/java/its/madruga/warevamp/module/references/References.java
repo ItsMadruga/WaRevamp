@@ -778,6 +778,17 @@ public class References {
         return result;
     }
 
+    // Call Privacy
+
+    public synchronized static Method onCallReceivedMethod(ClassLoader loader) throws Exception {
+        Method result = getMethod("onCallReceivedMethod");
+        if (result != null) return result;
+        result = getIns().findMethodByString(StringMatchType.Contains, loader, "voip/callStateChangedOnUIThread");
+        if (result == null) throw new Exception("onCallReceivedMethod not found");
+        saveMethodPath(result, "onCallReceivedMethod");
+        return result;
+    }
+
     public static void start() {
         ins = new References();
     }

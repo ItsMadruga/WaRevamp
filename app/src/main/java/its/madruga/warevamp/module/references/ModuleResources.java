@@ -7,6 +7,8 @@ public class ModuleResources {
     public static class drawable {
         public static int download_icon;
         public static int twotone_auto_awesome_24;
+        public static int round_wifi_24;
+        public static int wifi_off_24px;
     }
 
     public static class string {
@@ -19,6 +21,8 @@ public class ModuleResources {
         public static int download_viewonce;
         public static int custom_privacy;
         public static int tab_groups;
+
+        public static int reject_call_toast_notice;
     }
 
     public static class array {

@@ -1,6 +1,8 @@
 package its.madruga.warevamp.module.hooks.others;
 
 import static its.madruga.warevamp.module.hooks.core.HooksLoader.mApp;
+import static its.madruga.warevamp.module.references.ModuleResources.drawable.round_wifi_24;
+import static its.madruga.warevamp.module.references.ModuleResources.drawable.wifi_off_24px;
 import static its.madruga.warevamp.module.references.ModuleResources.string.dnd_mode_description;
 import static its.madruga.warevamp.module.references.ModuleResources.string.dnd_mode_title;
 import static its.madruga.warevamp.module.references.ModuleResources.string.reboot_wpp;
@@ -19,6 +21,7 @@ import org.jetbrains.annotations.NotNull;
 
 import de.robv.android.xposed.XC_MethodHook;
 import de.robv.android.xposed.XSharedPreferences;
+import de.robv.android.xposed.XposedBridge;
 import de.robv.android.xposed.XposedHelpers;
 import its.madruga.warevamp.BuildConfig;
 import its.madruga.warevamp.broadcast.receivers.WhatsAppReceiver;
@@ -64,11 +67,12 @@ public class MenuHook extends HooksBase {
             @SuppressLint("ApplySharedPref")
             @Override
             protected void afterHookedMethod(MethodHookParam param) throws Throwable {
+                boolean dndMode = prefs.getBoolean("dndMode", false);
                 Menu menu = (Menu) param.args[0];
                 Activity home = (Activity) param.thisObject;
                 MenuItem menuItem = menu.add(0, 0, 0, mApp.getString(dnd_mode_title));
+                menuItem.setIcon(dndMode ? mApp.getDrawable(wifi_off_24px) : mApp.getDrawable(round_wifi_24));
                 menuItem.setOnMenuItemClickListener(menuItem1 -> {
-                    boolean dndMode = prefs.getBoolean("dndMode", false);
                     if (dndMode) {
                         prefs.edit().putBoolean("dndMode", false).commit();
                         WhatsAppReceiver.restartWhatsapp(home);
@@ -88,6 +92,7 @@ public class MenuHook extends HooksBase {
                     return true;
                 });
                 super.afterHookedMethod(param);
+
             }
         });
     }
