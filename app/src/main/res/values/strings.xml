@@ -84,5 +84,11 @@
     <string name="antirevoke_show_text">Show text</string>
     <string name="antirevoke_show_icon">Show icon</string>
     <string name="tab_groups">Groups</string>
-    <string name="reject_call">Reject</string>
+    <string name="tab_calls">Calls</string>
+    <string name="reject_call">Reject unknown calls</string>
+    <string name="reject_call_sum">Reject calls as if you were without internet access.</string>
+    <string name="reject_call_all">All</string>
+    <string name="reject_call_unknown">Only Unknown</string>
+    <string name="reject_call_toast">Show a toast/notice when someone calls you.</string>
+    <string name="reject_call_toast_notice"> called you!</string>
 </resources>

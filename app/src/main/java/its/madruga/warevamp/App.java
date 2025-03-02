@@ -34,6 +34,7 @@ public class App extends Application {
         list.add(R.string.custom_privacy);
         list.add(R.string.tab_groups);
         list.add(R.string.download_viewonce);
+        list.add(R.string.reject_call_toast_notice);
         list.add(R.array.custom_priv_entries);
         list.add(R.array.custom_priv_values);
         list.add(R.drawable.download_icon);

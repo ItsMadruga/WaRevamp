@@ -21,6 +21,8 @@ public class ModuleResources {
         public static int download_viewonce;
         public static int custom_privacy;
         public static int tab_groups;
+
+        public static int reject_call_toast_notice;
     }
 
     public static class array {

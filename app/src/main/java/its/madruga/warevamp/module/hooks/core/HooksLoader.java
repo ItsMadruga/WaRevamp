@@ -21,6 +21,7 @@ import its.madruga.warevamp.broadcast.receivers.WhatsAppReceiver;
 import its.madruga.warevamp.broadcast.senders.WhatsAppSender;
 import its.madruga.warevamp.module.core.WppCallback;
 import its.madruga.warevamp.module.hooks.customization.HideArchivedChatsHook;
+import its.madruga.warevamp.module.hooks.functions.CallPrivacyHook;
 import its.madruga.warevamp.module.hooks.media.DownloadStatusHook;
 import its.madruga.warevamp.module.hooks.media.DownloadViewOnceHook;
 import its.madruga.warevamp.module.hooks.functions.CustomPrivacyHook;
@@ -104,7 +105,8 @@ public class HooksLoader {
                 DownloadViewOnceHook.class,
                 HideTypingRecordingHook.class,
                 FreezeLastSeenHook.class,
-                CustomPrivacyHook.class
+                CustomPrivacyHook.class,
+                CallPrivacyHook.class
         };
 
         for (var c : classes) {

@@ -19,6 +19,7 @@
         <item>@string/hide_read</item>
         <item>@string/hide_typing</item>
         <item>@string/hide_recording</item>
+        <item>@string/reject_call</item>
     </string-array>
     <string-array name="custom_priv_values">
         <item>antiRevoke</item>
@@ -26,13 +27,16 @@
         <item>hide_read</item>
         <item>hide_typing</item>
         <item>hide_recording</item>
+        <item>reject_call</item>
     </string-array>
-    <string-array name="call_entries">
+    <string-array name="call_privacy_entries" >
         <item>@string/module_disable</item>
-        <item>@string/reject_call</item>
+        <item>@string/reject_call_all</item>
+        <item>@string/reject_call_unknown</item>
     </string-array>
-    <string-array name="call_values">
+    <string-array name="call_privacy_values">
         <item>disable</item>
-        <item>reject</item>
+        <item>all</item>
+        <item>unknown</item>
     </string-array>
 </resources>
