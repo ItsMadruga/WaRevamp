@@ -1,6 +1,6 @@
 {
-  "version": "0.1.0",
-  "date": "01-03-2025",
+  "version": "0.1.1",
+  "date": "10-03-2025",
   "link": "https://t.me/warevampmodule/93",
-  "changelog": "| ADDED |\n\n- Call Privacy\n\n| FIXED |\n\n- minor bugs"
+  "changelog": "| FIXED |\n\n- Media Settings Error\n- Pinned Chats Limit"
 }

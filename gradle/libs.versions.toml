@@ -13,7 +13,7 @@ appcompatVersion = "1.6.1"
 rikkaXMaterial = "2.7.2"
 rikkaXPreference = "2.0.0"
 
-agp = "8.8.1"
+agp = "8.9.0"
 appcompat = "1.7.0"
 
 [libraries]
