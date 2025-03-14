@@ -4,8 +4,11 @@ More information coming soon...
 
 ## Download
 - [Releases](https://github.com/ItsMadruga/WaRevamp/releases)
-- [Pre-Releases](https://github.com/ItsMadruga/WaRevamp/actions/workflows/android.yml)
 
+# Telegram
+
+- [Channel](https://t.me/warevampmodule)
+- [Group](https://t.me/warevampgroup)
 ## Buy me a Coffee
 
 <div align="center">
