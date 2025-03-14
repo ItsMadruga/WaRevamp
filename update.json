@@ -1,6 +1,6 @@
 {
   "version": "0.1.1",
-  "date": "10-03-2025",
-  "link": "https://t.me/warevampmodule/93",
-  "changelog": "| FIXED |\n\n- Media Settings Error\n- Pinned Chats Limit"
+  "date": "13-03-2025",
+  "link": "https://t.me/warevampmodule/97",
+  "changelog": "| FIXED |\n\n- Media Settings Error\n- Pinned Chats Limit\n- Deleted status icon\n\n| ADDED |\n\n- Support to 2.25.7.x (may contain errors)"
 }

@@ -135,7 +135,7 @@ public class References {
         if (result != null) return result;
         Class<?> playbackProgress = XposedHelpers.findClass("com.whatsapp.status.playback.widget.StatusPlaybackProgressView", loader);
         ClassDataList classView = dexKitBridge.findClass(FindClass.create().matcher(
-                ClassMatcher.create().methodCount(new IntRange(1, 2)).addFieldForType(playbackProgress)
+                ClassMatcher.create().methodCount(new IntRange(1, 3)).addFieldForType(playbackProgress)
         ));
         if (classView.isEmpty()) throw new Exception("StatusPlaybackView class not found");
         Class<?> clsViewStatus = classView.get(0).getInstance(loader);
@@ -776,6 +776,17 @@ public class References {
         result = getIns().findMethodByString(StringMatchType.Contains, loader, "voip/callStateChangedOnUIThread");
         if (result == null) throw new Exception("onCallReceivedMethod not found");
         saveMethodPath(result, "onCallReceivedMethod");
+        return result;
+    }
+
+    // Home Activity
+
+    public synchronized static Class<?> homeActivityClass(ClassLoader loader) throws Exception {
+        Class<?> result = getClazz("homeActivityClass");
+        if (result != null) return result;
+        result = getIns().findClassByString(StringMatchType.Contains, loader, "HomeActivity/onCreate");
+        if (result == null) throw new Exception("homeActivityClass not found");
+        saveClassPath(result, "homeActivityClass");
         return result;
     }
 

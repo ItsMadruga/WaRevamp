@@ -250,7 +250,7 @@ public class SeparateGroupsHook extends HooksBase {
     }
 
     private void hookTabList() throws Exception {
-        Class<?> home = XposedHelpers.findClass("com.whatsapp.HomeActivity", loader);
+        Class<?> home = homeActivityClass(loader);
         Field fieldTabsList = Arrays.stream(home.getDeclaredFields()).filter(f -> f.getType().equals(List.class)).findFirst().orElse(null);
         if (fieldTabsList == null) {
             throw new NullPointerException("fieldTabList is NULL!");

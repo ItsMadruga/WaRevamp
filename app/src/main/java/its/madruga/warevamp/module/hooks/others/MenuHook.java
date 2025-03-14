@@ -6,6 +6,7 @@ import static its.madruga.warevamp.module.references.ModuleResources.drawable.wi
 import static its.madruga.warevamp.module.references.ModuleResources.string.dnd_mode_description;
 import static its.madruga.warevamp.module.references.ModuleResources.string.dnd_mode_title;
 import static its.madruga.warevamp.module.references.ModuleResources.string.reboot_wpp;
+import static its.madruga.warevamp.module.references.References.homeActivityClass;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
@@ -45,7 +46,7 @@ public class MenuHook extends HooksBase {
     }
 
     private void hookRestartMenu() throws Exception {
-        XposedHelpers.findAndHookMethod("com.whatsapp.HomeActivity", loader, "onCreateOptionsMenu", Menu.class, new XC_MethodHook() {
+        XposedHelpers.findAndHookMethod(homeActivityClass(loader), "onCreateOptionsMenu", Menu.class, new XC_MethodHook() {
             @Override
             protected void afterHookedMethod(MethodHookParam param) throws Throwable {
                 Menu menu = (Menu) param.args[0];
@@ -63,7 +64,7 @@ public class MenuHook extends HooksBase {
     }
 
     private void hookDndMode() throws Exception {
-        XposedHelpers.findAndHookMethod("com.whatsapp.HomeActivity", loader, "onCreateOptionsMenu", Menu.class, new XC_MethodHook() {
+        XposedHelpers.findAndHookMethod(homeActivityClass(loader), "onCreateOptionsMenu", Menu.class, new XC_MethodHook() {
             @SuppressLint("ApplySharedPref")
             @Override
             protected void afterHookedMethod(MethodHookParam param) throws Throwable {
