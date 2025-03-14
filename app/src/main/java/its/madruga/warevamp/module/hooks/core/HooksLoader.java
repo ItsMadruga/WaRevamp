@@ -1,6 +1,8 @@
 package its.madruga.warevamp.module.hooks.core;
 
 
+import static its.madruga.warevamp.module.references.References.homeActivityClass;
+
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -46,7 +48,7 @@ public class HooksLoader {
     public static Activity home;
     public static ArrayList<String> list = new ArrayList<>();
 
-    public static void initialize(XSharedPreferences pref, ClassLoader loader, String sourceDir) {
+    public static void initialize(XSharedPreferences pref, ClassLoader loader, String sourceDir) throws Exception {
 
         XposedBridge.log("Starting WhatsApp Broadcasts");
         if (!References.initDexKit(sourceDir)) {
@@ -71,7 +73,7 @@ public class HooksLoader {
             }
         });
 
-        XposedHelpers.findAndHookMethod("com.whatsapp.HomeActivity", loader, "onCreate", Bundle.class, new XC_MethodHook() {
+        XposedHelpers.findAndHookMethod(homeActivityClass(loader), "onCreate", Bundle.class, new XC_MethodHook() {
             @Override
             protected void afterHookedMethod(MethodHookParam param) throws Throwable {
                 super.afterHookedMethod(param);
@@ -79,8 +81,8 @@ public class HooksLoader {
 
                 if (!list.isEmpty()) {
                     new AlertDialog.Builder(home)
-                            .setTitle("Erro detectado")
-                            .setMessage("As seguintes opcoes estao com erro:\n\n" + String.join("\n", list.toArray(new String[0])))
+                            .setTitle("Error detected")
+                            .setMessage("The following functions are in error:\n\n" + String.join("\n", list.toArray(new String[0])))
                             .show();
                 }
             }

@@ -5,6 +5,7 @@ import android.util.Log;
 import android.util.Pair;
 import android.view.Menu;
 import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
@@ -134,7 +135,7 @@ public class References {
         if (result != null) return result;
         Class<?> playbackProgress = XposedHelpers.findClass("com.whatsapp.status.playback.widget.StatusPlaybackProgressView", loader);
         ClassDataList classView = dexKitBridge.findClass(FindClass.create().matcher(
-                ClassMatcher.create().methodCount(new IntRange(1, 2)).addFieldForType(playbackProgress)
+                ClassMatcher.create().methodCount(new IntRange(1, 3)).addFieldForType(playbackProgress)
         ));
         if (classView.isEmpty()) throw new Exception("StatusPlaybackView class not found");
         Class<?> clsViewStatus = classView.get(0).getInstance(loader);
@@ -277,7 +278,7 @@ public class References {
     public synchronized static Class<?> mediaQualityClass(ClassLoader loader) throws Exception {
         Class<?> result = getClazz("mediaQualityClass");
         if (result != null) return result;
-        result = getIns().findClassByString(StringMatchType.Contains, loader, "videopreview/bad video");
+        result = getIns().findClassByString(StringMatchType.Contains, loader, "videoPreview/bad video");
         if (result == null) throw new Exception("mediaQuality class not found");
         saveClassPath(result, "mediaQualityClass");
         return result;
@@ -287,10 +288,18 @@ public class References {
         Method result = getMethod("videoResolutionMethod");
         if (result != null) return result;
         Class<?> mediaQualityClass = mediaQualityClass(loader);
-        result = Arrays.stream(mediaQualityClass.getDeclaredMethods()).filter(m -> m.getParameterCount() == 3 && m.getParameterTypes()[0] == int.class && m.getParameterTypes()[1] == int.class && m.getParameterTypes()[2] == int.class && m.getReturnType() == Pair.class).findFirst().orElse(null);
-        if (result == null) throw new Exception("videoQuality method not found");
+        result = filterVideoResolutionMethod(mediaQualityClass);
+        if (result == null) {
+            mediaQualityClass = getIns().findClassByString(StringMatchType.Contains, loader, "getSupportedFrameRatesFor =");
+            result = filterVideoResolutionMethod(mediaQualityClass);
+            if (result == null) throw new Exception("videoQuality method not found");
+        }
         saveMethodPath(result, "videoResolutionMethod");
         return result;
+    }
+
+    private static Method filterVideoResolutionMethod(Class<?> mediaQualityClass) {
+        return Arrays.stream(mediaQualityClass.getDeclaredMethods()).filter(m -> m.getParameterCount() == 3 && m.getParameterTypes()[0] == int.class && m.getParameterTypes()[1] == int.class && m.getParameterTypes()[2] == int.class && m.getReturnType() == Pair.class).findFirst().orElse(null);
     }
 
     public synchronized static Method videoBitrateMethod(ClassLoader loader) throws Exception {
@@ -594,34 +603,15 @@ public class References {
 
     // Pinned Limit
 
-    public synchronized static Method pinnedChatsMethod(ClassLoader loader) throws Exception {
-        Method result = getMethod("pinnedChatsMethod");
-        if (result != null) return result;
-        MethodDataList methodDataList = dexKitBridge.findMethod(new FindMethod().matcher(new MethodMatcher().addUsingNumber(3732).returnType(int.class)));
-        if(methodDataList.isEmpty()) throw new Exception("pinnedChatsMethod not found");
-        result = methodDataList.get(0).getMethodInstance(loader);
-        saveMethodPath(result, "pinnedChatsMethod");
-        return result;
-    }
-
-    public synchronized static Method pinnedHashSetMethod(ClassLoader loader) throws Exception {
-        Method result = getMethod("pinnedHashSetMethod");
-        if (result != null) return result;
-        Class<?> cls = getIns().findClassByString(StringMatchType.Contains, loader, "getPinnedJids/QUERY");
-        if (cls == null) throw new Exception("pinnedClassList not found");
-        result = Arrays.stream(cls.getDeclaredMethods()).filter(m -> m.getReturnType().equals(Set.class)).findFirst().orElse(null);
-        if (result == null) throw new Exception("pinnedHashSetMethod not found");
-        saveMethodPath(result, "pinnedHashSetMethod");
-        return result;
-    }
-
     public synchronized static Method pinnedLimitMethod(ClassLoader loader) throws Exception {
         Method result = getMethod("pinnedLimitMethod");
         if (result != null) return result;
         result = getIns().findMethodByString(StringMatchType.Contains, loader, "count_progress");
-        if (result == null) throw new Exception("pinnedLimitMethod not found");
-        saveMethodPath(result, "pinnedLimitMethod");
-        return result;
+        if (result != null && result.getParameters()[0].getType().equals(MenuItem.class)) {
+            saveMethodPath(result, "pinnedLimitMethod");
+            return result;
+        }
+        throw new Exception("pinnedLimitMethod not found");
     }
 
     // Hide Read
@@ -786,6 +776,17 @@ public class References {
         result = getIns().findMethodByString(StringMatchType.Contains, loader, "voip/callStateChangedOnUIThread");
         if (result == null) throw new Exception("onCallReceivedMethod not found");
         saveMethodPath(result, "onCallReceivedMethod");
+        return result;
+    }
+
+    // Home Activity
+
+    public synchronized static Class<?> homeActivityClass(ClassLoader loader) throws Exception {
+        Class<?> result = getClazz("homeActivityClass");
+        if (result != null) return result;
+        result = getIns().findClassByString(StringMatchType.Contains, loader, "HomeActivity/onCreate");
+        if (result == null) throw new Exception("homeActivityClass not found");
+        saveClassPath(result, "homeActivityClass");
         return result;
     }
 

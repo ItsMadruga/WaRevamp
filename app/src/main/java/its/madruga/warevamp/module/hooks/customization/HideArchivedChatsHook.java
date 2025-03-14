@@ -1,6 +1,7 @@
 package its.madruga.warevamp.module.hooks.customization;
 
 import static its.madruga.warevamp.module.references.References.archivedHideChatsMethod;
+import static its.madruga.warevamp.module.references.References.homeActivityClass;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -37,7 +38,7 @@ public class HideArchivedChatsHook extends HooksBase {
             }
         });
 
-        XposedHelpers.findAndHookMethod("com.whatsapp.HomeActivity", loader, "onCreate", Bundle.class, new XC_MethodHook() {
+        XposedHelpers.findAndHookMethod(homeActivityClass(loader), "onCreate", Bundle.class, new XC_MethodHook() {
             @Override
             protected void afterHookedMethod(MethodHookParam param) throws Throwable {
                 super.afterHookedMethod(param);
