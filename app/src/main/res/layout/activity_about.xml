@@ -13,7 +13,6 @@
         android:layout_margin="20dp"
         android:id="@+id/infos"
         android:title="@string/app_name"
-        android:subtitle="@string/app_desc"
         app:cardElevation="8dp"
         app:cardCornerRadius="12dp"
         app:layout_constraintStart_toStartOf="parent"

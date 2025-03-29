@@ -117,6 +117,7 @@ public class ReferencesCache {
     }
 
     public static Class<?> getClazz(String hookName) {
+        if (preferences == null) return null;
         String classPath = preferences.getString(hookName, "");
         if (classPath.isEmpty()) return null;
         return XposedHelpers.findClass(classPath, loader);

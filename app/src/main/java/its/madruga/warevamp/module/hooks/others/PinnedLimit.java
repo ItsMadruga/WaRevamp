@@ -30,7 +30,6 @@ public class PinnedLimit extends HooksBase {
         if(!pinnedLimit) return;
 
         XposedBridge.hookMethod(pinnedLimitMethod(loader), new XC_MethodHook() {
-            private Unhook hookSize;
             @Override
             protected void afterHookedMethod(MethodHookParam param) throws Throwable {
                 MenuItem menu = (MenuItem) param.args[0];
@@ -38,14 +37,9 @@ public class PinnedLimit extends HooksBase {
                 int pinId = WppUtils.getResourceId("menuitem_conversations_pin", "id");
 
                 if(menu.getItemId() == pinId) {
-                    hookSize = XposedHelpers.findAndHookMethod(HashSet.class, "size", XC_MethodReplacement.returnConstant(1));
+                    XposedHelpers.findAndHookMethod(HashSet.class, "size", XC_MethodReplacement.returnConstant(1));
                 }
 
-            }
-
-            @Override
-            protected void beforeHookedMethod(MethodHookParam param) throws Throwable {
-                if (hookSize != null) hookSize.unhook();
             }
         });
     }

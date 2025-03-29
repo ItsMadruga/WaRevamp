@@ -1,6 +1,7 @@
 package its.madruga.warevamp.module.references;
 
 import android.content.Context;
+import android.os.Bundle;
 import android.util.Log;
 import android.util.Pair;
 import android.view.Menu;
@@ -455,11 +456,9 @@ public class References {
     public synchronized static Method tabListMethod(ClassLoader loader) throws Exception {
         Method result = getMethod("tabListMethod");
         if (result != null) return result;
-        var classData = dexKitBridge.findClass(FindClass.create().searchPackages("X.").matcher(ClassMatcher.create().addUsingString("mainContainer")));
-        if (classData.isEmpty()) throw new Exception("mainContainer class not found");
-        var classMain = classData.get(0).getInstance(loader);
-        result = Arrays.stream(classMain.getMethods()).filter(m -> m.getName().equals("onCreate")).findFirst().orElse(null);
-        if (result == null) throw new Exception("onCreate method not found");
+        Class<?> homeActivity = homeActivityClass(loader);
+        result = homeActivity.getSuperclass().getDeclaredMethod("onCreate", Bundle.class);
+        if (result == null) throw new Exception("tabListMethod not found!");
         saveMethodPath(result, "tabListMethod");
         return result;
     }
